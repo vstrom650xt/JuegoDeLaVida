@@ -1,6 +1,7 @@
 import pygame
 import numpy as np
 import time
+import sys
 
 pygame.init()
 
@@ -24,7 +25,9 @@ gameState[21, 21] = 1
 gameState[22, 22] = 1
 gameState[22, 23] = 1
 gameState[21, 23] = 1
-gameState[20, 23] = 1
+gameState[5, 5] = 1
+gameState[6, 6] = 1
+gameState[8, 8] = 1
 
 gameState[11, 11] = 1
 gameState[12, 12] = 1
@@ -81,6 +84,17 @@ while True:
                     + gameState[(x) % nxC, (y + 1) % nyC]
                     + gameState[(x + 1) % nxC, (y + 1) % nyC]
                 )
+                pygame.draw.polygon(
+                    screen,
+                    (255, 255, 255),
+                    [
+                        (cellX * dimCW, cellY * dimCH),
+                        ((cellX + 1) * dimCW, cellY * dimCH),
+                        ((cellX + 1) * dimCW, (cellY + 1) * dimCH),
+                        (cellX * dimCW, (cellY + 1) * dimCH),
+                    ],
+                    0,
+                )
 
                 # Aplicar las reglas del juego de la vida de Conway
                 if gameState[x, y] == 0 and n_neigh == 3:
@@ -102,17 +116,12 @@ while True:
                     pygame.draw.polygon(screen, (255, 255, 255), poly, 0)
 
     # Dibuja la célula resaltada
-    pygame.draw.polygon(
-        screen,
-        (255, 255, 255),
-        [
-            (cellX * dimCW, cellY * dimCH),
-            ((cellX + 1) * dimCW, cellY * dimCH),
-            ((cellX + 1) * dimCW, (cellY + 1) * dimCH),
-            (cellX * dimCW, (cellY + 1) * dimCH),
-        ],
-        0,
-    )
 
     pygame.display.flip()
     gameState = np.copy(newGameState)
+
+    # Verificar si queda solo un elemento en blanco
+    if np.sum(newGameState) == 1 or np.sum(newGameState) == 0:
+        print("¡Solo queda una célula viva! Fin del juego.")
+        pygame.quit()
+        sys.exit()
