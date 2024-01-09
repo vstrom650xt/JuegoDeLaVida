@@ -38,8 +38,8 @@ gameState[12, 13] = 1
 gameState[12, 33] = 1
 gameState[11, 33] = 1
 gameState[10, 43] = 1
-# Posición de la célula que se moverá con las flechas
-cellX, cellY = 25, 25
+# # Posición de la célula que se moverá con las flechas
+# cellX, cellY = 25, 25
 # Listas para almacenar estadísticas
 generation_history = []
 alive_cells_history = []
@@ -54,7 +54,6 @@ launchedCells = []
 # Coordenadas de la nave
 shipPos = (26, 48)
 
-pauseExec = False
 
 # Mantiene la ventana abierta
 while True:
@@ -88,16 +87,16 @@ while True:
                 # Mover la nave hacia la derecha
                 shipPos = ((shipPos[0] + 1) % nxC, shipPos[1])
                 # Cambia el estado de las células resaltadas al presionar awds
-            elif event.key == pygame.K_SPACE:
-                pauseExec = not pauseExec
-            elif event.key == pygame.K_w:
-                cellY = (cellY - 1) % nyC
-            elif event.key == pygame.K_s:
-                cellY = (cellY + 1) % nyC
-            elif event.key == pygame.K_a:
-                cellX = (cellX - 1) % nxC
-            elif event.key == pygame.K_d:
-                cellX = (cellX + 1) % nxC
+            # elif event.key == pygame.K_SPACE:
+            #     pauseExec = not pauseExec
+            # elif event.key == pygame.K_w:
+            #     cellY = (cellY - 1) % nyC
+            # elif event.key == pygame.K_s:
+            #     cellY = (cellY + 1) % nyC
+            # elif event.key == pygame.K_a:
+            #     cellX = (cellX - 1) % nxC
+            # elif event.key == pygame.K_d:
+            #     cellX = (cellX + 1) % nxC
             elif event.key == pygame.K_RETURN:
                 for x, y in unitPos:
                     if 0 <= x < nxC and 0 <= y < nyC:
@@ -153,17 +152,17 @@ while True:
                     pygame.draw.polygon(screen, (255, 255, 255), poly, 0)
 
         # Dibuja la célula resaltada
-    pygame.draw.polygon(
-        screen,
-        (255, 0, 0),
-        [
-            (cellX * dimCW, cellY * dimCH),
-            ((cellX + 1) * dimCW, cellY * dimCH),
-            ((cellX + 1) * dimCW, (cellY + 1) * dimCH),
-            (cellX * dimCW, (cellY + 1) * dimCH),
-        ],
-        0,
-    )
+    # pygame.draw.polygon(
+    #     screen,
+    #     (255, 0, 0),
+    #     [
+    #         (cellX * dimCW, cellY * dimCH),
+    #         ((cellX + 1) * dimCW, cellY * dimCH),
+    #         ((cellX + 1) * dimCW, (cellY + 1) * dimCH),
+    #         (cellX * dimCW, (cellY + 1) * dimCH),
+    #     ],
+    #     0,
+    # )
 
     # Muestra estadísticas en la ventana
     font = pygame.font.SysFont(None, 25)
